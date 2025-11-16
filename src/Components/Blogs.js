@@ -7,7 +7,6 @@ import "../styling/blogs.css";
 
 const Blogs = () => {
   const searchInput = useSelector(selectUserInput);
-  const blog_url = `https://gnews.io/api/v4/search?q=${searchInput}&token=f91f5c21674349bc8a1c2479cbd9b3ae`;
   const dispatch = useDispatch();
   const [blogs, setBlogs] = useState();
 
@@ -15,7 +14,7 @@ const Blogs = () => {
 
   useEffect(() => {
     axios
-      .get(blog_url)
+      .get(`/api/news?q=${searchInput}`)
       .then((response) => {
         dispatch(setBlogData(response.data));
         setBlogs(response.data);
@@ -24,7 +23,7 @@ const Blogs = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [blog_url, dispatch, searchInput]);
+  }, [dispatch, searchInput]);
 
   return (
     <div className="blog__page">
